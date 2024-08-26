@@ -1,5 +1,5 @@
 import React from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Link } from "react-router-native";
 import theme from "../../theme";
 const styles = StyleSheet.create({
@@ -14,14 +14,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-export function BarTab({ name, path }) {
+export function BarTab({ name, path, onClick = () => {} }) {
+  console.log("hiugi", onClick);
   return (
-    <Pressable
+    <TouchableOpacity
       style={styles.btn}
-      onPress={() => console.log("pressed")}>
-      <Link to={path}>
+      onPress={async () => {
+        await onClick();
+      }}>
+      {path ? (
+        <Link to={path}>
+          <Text style={styles.text}>{name}</Text>
+        </Link>
+      ) : (
         <Text style={styles.text}>{name}</Text>
-      </Link>
-    </Pressable>
+      )}
+    </TouchableOpacity>
   );
 }
