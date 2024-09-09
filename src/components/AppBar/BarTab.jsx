@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
   },
 });
 export function BarTab({ name, path, onClick = () => {} }) {
-  console.log("hiugi", onClick);
   return (
     <TouchableOpacity
       style={styles.btn}

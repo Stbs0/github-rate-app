@@ -2,6 +2,7 @@ import { BtnPrimary } from "./BtnPrimary";
 import { Counts } from "./Counts";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import theme from "../../../theme";
+
 const styles = StyleSheet.create({
   container: {
     display: "flex",
@@ -48,39 +49,45 @@ const Item = ({
   ratingAverage,
   reviewCount,
   ownerAvatarUrl,
-}) => (
-  <View style={styles.container}>
-    <View style={styles.subContainer}>
-      <View style={styles.ImageContainer}>
-        <Image
-          source={{ uri: ownerAvatarUrl }}
-          style={styles.images}
+  opened = false,
+}) => {
+ 
+  return (
+    <View
+      style={styles.container}
+      testID='repositoryItem'>
+      <View style={styles.subContainer}>
+        <View style={styles.ImageContainer}>
+          <Image
+            source={{ uri: ownerAvatarUrl }}
+            style={styles.images}
+          />
+        </View>
+        <View style={styles.textsContainer}>
+          <Text style={styles.text}>{fullName}</Text>
+          <Text>{description}</Text>
+          <BtnPrimary btnTitle={language} />
+        </View>
+      </View>
+      <View style={styles.countersContainer}>
+        <Counts
+          count={stargazersCount}
+          name='Stars'
+        />
+        <Counts
+          count={forksCount}
+          name='Forks'
+        />
+        <Counts
+          count={reviewCount}
+          name='Reviews'
+        />
+        <Counts
+          count={ratingAverage}
+          name='Rating'
         />
       </View>
-      <View style={styles.textsContainer}>
-        <Text style={styles.text}>{fullName}</Text>
-        <Text>{description}</Text>
-        <BtnPrimary btnTitle={language} />
-      </View>
     </View>
-    <View style={styles.countersContainer}>
-      <Counts
-        count={stargazersCount}
-        name='Stars'
-      />
-      <Counts
-        count={forksCount}
-        name='Forks'
-      />
-      <Counts
-        count={reviewCount}
-        name='Reviews'
-      />
-      <Counts
-        count={ratingAverage}
-        name='Rating'
-      />
-    </View>
-  </View>
-);
+  );
+};
 export default Item;

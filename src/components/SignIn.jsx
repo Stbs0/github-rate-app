@@ -41,12 +41,15 @@ const SignIn = () => {
     try {
       const { data } = await signIn({ username, password });
       console.log(data.authenticate.accessToken);
-  
     } catch (e) {
       console.log(e);
     }
   };
 
+  return <SignInContainer onSubmit={onSubmit} />;
+};
+
+export const SignInContainer = ({ onSubmit }) => {
   return (
     <Formik
       initialValues={{
@@ -98,12 +101,11 @@ const SignIn = () => {
           <Pressable
             style={styles.btn}
             onPress={handleSubmit}>
-            <Text style={styles.text}>Sign In</Text>
+            <Text style={styles.text}>Submit</Text>
           </Pressable>
         </View>
       )}
     </Formik>
   );
 };
-
 export default SignIn;

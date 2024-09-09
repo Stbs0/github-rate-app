@@ -2,7 +2,10 @@ import { BarTab } from "./BarTab";
 import { View, StyleSheet, Text, Pressable, ScrollView } from "react-native";
 import Constants from "expo-constants";
 import theme from "../../theme";
-import useLogOut from "../../hooks/useLogOut";
+// import useLogOut from "../../hooks/useLogOut";
+import { useApolloClient, useQuery } from "@apollo/client";
+import useAuthStorage from "../../hooks/useAuthStorage";
+import { ME } from "../../graphql/queries";
 
 const styles = StyleSheet.create({
   container: {
@@ -17,11 +20,31 @@ const styles = StyleSheet.create({
 });
 
 const AppBar = () => {
-  const { logOut, data, isSignedIn, loading } = useLogOut();
-  if (loading) {
-    return <Text>Loading</Text>;
+  const apolloClient = useApolloClient();
+  const authStorage = useAuthStorage();
+  const { data, loading, error } = useQuery(ME, {
+    fetchPolicy: "cache-and-network",
+  });
+  if (error) {
+    console.log(error);
+    return <Text>Error</Text>;
   }
-  console.log(data.me);
+  if (loading) {
+    console.log(loading);
+    return <Text>loading</Text>;
+  }
+
+  const logOut = async () => {
+    try {
+      console.log("logging out");
+      await authStorage.removeAccessToken();
+      await apolloClient.resetStore();
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
+
+  const isSignedIn = () => !!data.me;
   return (
     <View style={styles.container}>
       <ScrollView
