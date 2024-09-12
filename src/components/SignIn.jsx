@@ -5,6 +5,7 @@ import * as yup from "yup";
 import useSignIn from "../hooks/useSignIn";
 import AuthStorage from "../utils/authStorage";
 import useLogOut from "../hooks/useLogOut";
+import { useNavigate } from "react-router-native";
 const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
@@ -35,12 +36,13 @@ const validationSchema = yup.object().shape({
 
 const SignIn = () => {
   const { signIn } = useSignIn();
+  const navigate = useNavigate();
   const onSubmit = async (values) => {
     const { username, password } = values;
 
     try {
       const { data } = await signIn({ username, password });
-      console.log(data.authenticate.accessToken);
+navigate(`/`);
     } catch (e) {
       console.log(e);
     }

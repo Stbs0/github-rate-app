@@ -8,6 +8,9 @@ import theme from "../theme";
 import SignIn from "./SignIn";
 import SingleRepoView from "./RepositoryList/SingleRepoView";
 import Item from "./RepositoryList/RepositoryItem";
+import Review from "./Review";
+import SignUp from "./SignUp";
+import MyReviews from "./MyReviews/MyReviews";
 
 const styles = StyleSheet.create({
   container: {
@@ -30,6 +33,18 @@ const Main = () => {
         <Route
           path='/sign-in'
           element={<SignIn />}
+        />
+        <Route
+          path='/sign-up'
+          element={<SignUp />}
+        />
+        <Route
+          path='/create-review'
+          element={<Review />}
+        />
+        <Route
+          path='/my-reviews'
+          element={<MyReviews />}
         />
         <Route
           path='/:id'

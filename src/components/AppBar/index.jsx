@@ -1,11 +1,10 @@
 import { BarTab } from "./BarTab";
 import { View, StyleSheet, Text, Pressable, ScrollView } from "react-native";
 import Constants from "expo-constants";
-import theme from "../../theme";
-// import useLogOut from "../../hooks/useLogOut";
 import { useApolloClient, useQuery } from "@apollo/client";
 import useAuthStorage from "../../hooks/useAuthStorage";
 import { ME } from "../../graphql/queries";
+import { useState } from "react";
 
 const styles = StyleSheet.create({
   container: {
@@ -22,6 +21,7 @@ const styles = StyleSheet.create({
 const AppBar = () => {
   const apolloClient = useApolloClient();
   const authStorage = useAuthStorage();
+
   const { data, loading, error } = useQuery(ME, {
     fetchPolicy: "cache-and-network",
   });
@@ -30,9 +30,9 @@ const AppBar = () => {
     return <Text>Error</Text>;
   }
   if (loading) {
-    console.log(loading);
     return <Text>loading</Text>;
   }
+  console.log(data);
 
   const logOut = async () => {
     try {
@@ -45,6 +45,7 @@ const AppBar = () => {
   };
 
   const isSignedIn = () => !!data.me;
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -54,17 +55,34 @@ const AppBar = () => {
           name={"Repositories"}
           path={"/"}
         />
+
         {isSignedIn() ? (
-          <BarTab
-            name={"Sign out"}
-            path={null}
-            onClick={logOut}
-          />
+          <>
+            <BarTab
+              name={"Create a review"}
+              path={"/create-review"}
+            />
+            <BarTab
+              name={"My reviews"}
+              path={"/my-reviews"}
+            />
+            <BarTab
+              name={"Sign out"}
+              path={null}
+              onClick={logOut}
+            />
+          </>
         ) : (
-          <BarTab
-            name={"Sign in"}
-            path={"/sign-in"}
-          />
+          <>
+            <BarTab
+              name={"Sign Up"}
+              path={"/sign-up"}
+            />
+            <BarTab
+              name={"Sign in"}
+              path={"/sign-in"}
+            />
+          </>
         )}
       </ScrollView>
     </View>
