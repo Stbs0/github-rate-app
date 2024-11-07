@@ -93,20 +93,20 @@ const RepositoryList = () => {
     searchKeyword,
     first: 4,
   });
-  if (error) {
-    console.log(error);
-    return <Text>Error</Text>;
-  }
-  if (loading) {
-    return (
-      <View className='absolute  w-full h-full items-center justify-center '>
-        <ActivityIndicator
-          animating={true}
-          size={"large"}
-        />
-      </View>
-    );
-  }
+  // if (error) {
+  //   console.log(error);
+  //   return <Text>Error</Text>;
+  // }
+  // if (loading) {
+  //   return (
+  //     <View className='absolute  w-full h-full items-center justify-center '>
+  //       <ActivityIndicator
+  //         animating={true}
+  //         size={"large"}
+  //       />
+  //     </View>
+  //   );
+  // }
   const onEndReach = () => {
     fetchMore();
 

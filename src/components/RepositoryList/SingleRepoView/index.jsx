@@ -20,9 +20,7 @@ const SingleRepository = () => {
     },
     fetchPolicy: "cache-and-network",
   });
-  if (loading) return <Text>Loading</Text>;
 
-  if (error) return <Text>Error</Text>;
   const onEndReach = () => {
     console.log(!data.repository.reviews.pageInfo.hasNextPage);
     console.log('aaaaa',data.repository.reviews.pageInfo);
